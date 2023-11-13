@@ -1,0 +1,23 @@
+.portfolioItem {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+}
+
+.portfolioItem h3 {
+    margin-top: 0;
+}
+
+.portfolioImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.keywords {
+    margin-top: 10px;
+    font-style: italic;
+}

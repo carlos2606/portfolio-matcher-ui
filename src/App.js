@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import SearchBar from './components/SearchBar';
+import PortfolioList from './components/PortfolioList';
+import { API_ROUTES } from './api/apiRoutes'; // Ensure you have this configuration
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [portfolios, setPortfolios] = useState([]);
+
+    const handleSearch = async (query) => {
+        try {
+            const response = await fetch(`${API_ROUTES.SEARCH}?searchQuery=${encodeURIComponent(query)}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setPortfolios(data);
+        } catch (error) {
+            console.error('Error fetching data: ', error);
+        }
+    };
+
+    return (
+        <div>
+            <SearchBar onSearch={handleSearch} />
+            <PortfolioList portfolios={portfolios} />
+        </div>
+    );
 }
 
 export default App;
